@@ -1,0 +1,134 @@
+{% load static %}
+{% load i18n %}
+<header class="header-area header-sticky" style="min-height: 100px;">
+    <div class="navbar1" style="background-color: #333;color: aliceblue;height: 30px;padding: 2px; display: flex; justify-content: space-between">
+        <div class="current-day">
+            <i class="fa fa-calendar">&nbsp;</i><span id="week-day"></span>&nbsp;<span id="date"></span>&nbsp;<span
+                id="month"></span>&nbsp;<span id="year2"></span>
+        </div>
+        {% include 'inc/languages.html' %}
+        {% if request.user.is_authenticated %}
+            <div class="greeting">
+                {% trans 'Welcome' %} {{ user.username }} | <a href="{% url 'logout' %}">{% trans 'Sign out' %}</a>
+            </div>
+        {% else %}
+            <div class="register-login">
+                <a href="{% url 'sign-up' %}">{% trans 'Sign up' %}</a> |
+                <a href="{% url 'sign-in' %}">{% trans 'Sign in' %}</a>
+            </div>
+        {% endif %}
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav class="main-nav">
+                    <!-- ***** Logo Start ***** -->
+                    <a href="{% url 'home' %}" class="logo">
+                        <img src="{% static '/assets/images/hazar_travel.png' %}" alt="">
+                    </a>
+                    <!-- ***** Logo End ***** -->
+                    <!-- ***** Menu Start ***** -->
+                    <ul class="nav">
+                        <li><a href="{% url 'home' %}">{% trans 'Home' %}</a></li>
+                        <li><a href="{% url 'cities_hotels' %}">{% trans 'Cities & Hotels' %}</a></li>
+                        <li><a href="{% url 'tours' %}">{% trans 'Tours' %}</a></li>
+                        <li><a href="{% url 'explore_more' %}">{% trans 'Explore More' %}</a></li>
+                        <li><a href="{% url 'about' %}">{% trans 'About us' %}</a></li>
+                        <li><a href="{% url 'weekly_forecast' %}">{% trans 'Prediction' %}</a></li>
+                    </ul>
+                    <a class='menu-trigger'>
+                        <span>{% trans 'Menu' %}</span>
+                    </a>
+                    <!-- ***** Menu End ***** -->
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+
+<script>
+    function updateDate() {
+        let date2 = new Date();
+        let day = date2.getDay();
+        let month = date2.getMonth() + 1;
+
+        let real_day, real_month;
+
+        // Translate day
+        switch (day) {
+            case 1:
+                real_day = '{% trans "Monday" %}';
+                break;
+            case 2:
+                real_day = '{% trans "Tuesday" %}';
+                break;
+            case 3:
+                real_day = '{% trans "Wednesday" %}';
+                break;
+            case 4:
+                real_day = '{% trans "Thursday" %}';
+                break;
+            case 5:
+                real_day = '{% trans "Friday" %}';
+                break;
+            case 6:
+                real_day = '{% trans "Saturday" %}';
+                break;
+            case 7:
+                real_day = '{% trans "Sunday" %}';
+                break;
+        }
+
+        // Translate month
+        switch (month) {
+            case 1:
+                real_month = '{% trans "January" %}';
+                break;
+            case 2:
+                real_month = '{% trans "February" %}';
+                break;
+            case 3:
+                real_month = '{% trans "March" %}';
+                break;
+            case 4:
+                real_month = '{% trans "April" %}';
+                break;
+            case 5:
+                real_month = '{% trans "May" %}';
+                break;
+            case 6:
+                real_month = '{% trans "June" %}';
+                break;
+            case 7:
+                real_month = '{% trans "July" %}';
+                break;
+            case 8:
+                real_month = '{% trans "August" %}';
+                break;
+            case 9:
+                real_month = '{% trans "September" %}';
+                break;
+            case 10:
+                real_month = '{% trans "October" %}';
+                break;
+            case 11:
+                real_month = '{% trans "November" %}';
+                break;
+            case 12:
+                real_month = '{% trans "December" %}';
+                break;
+        }
+
+        let date3 = date2.getDate();
+        let year3 = date2.getFullYear();
+
+        // Update HTML with translated strings
+        document.getElementById('week-day').innerHTML = real_day;
+        document.getElementById('month').innerHTML = real_month;
+        document.getElementById('date').innerHTML = date3;
+        document.getElementById('year2').innerHTML = year3;
+    }
+
+    // Call the function
+    updateDate();
+</script>

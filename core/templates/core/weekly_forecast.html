@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{{ forecast_data.city.name }}{% endblock %}
+{% block content %}
+    <div class="container mt-4" style="padding: 150px">
+    <h2 class="mb-4">{% trans 'Weekly Weather Forecast for' %} {{ forecast_data.city.name }}</h2>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for entry in forecast_data.list %}
+    <div class="col">
+        <div class="card shadow" style="background-color: #22b3c1">
+            <div class="card-body">
+                <h5 class="card-title">{% trans 'Date:' %} {{ entry.dt_txt }}</h5>
+                <p class="card-text" style="color: aliceblue">{% trans 'Temperature:' %} {{ entry.main.temp }} &deg;C</p>
+                <p class="card-text" style="color: aliceblue">{% trans 'Sky:' %} {{ entry.weather.0.description }}</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    </div>
+    </div>
+    <!-- Repeat for other days -->
+
+{% endblock %}

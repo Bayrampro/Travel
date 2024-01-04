@@ -1,0 +1,155 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+      <title>{% block title %}{% endblock %}</title>
+
+    <style>
+        {% block style %}
+        {% endblock %}
+    </style>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="icon" href="{% static '/assets/images/hazar_travel.png' %}" type="image/x-icon">
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="{% static 'assets/css/fontawesome.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/templatemo-woox-travel.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/owl.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/animate.css'%}">
+    <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
+<!--
+
+TemplateMo 580 Woox Travel
+
+https://templatemo.com/tm-580-woox-travel
+
+-->
+
+  </head>
+
+<body>
+{% include 'inc/_nav.html' %}
+{% block content %}
+
+{% endblock %}
+{% include 'inc/_footer.html' %}
+  <!-- Scripts -->
+  <!-- Bootstrap core JavaScript -->
+  <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+
+  <script src="{% static 'assets/js/isotope.min.js' %}"></script>
+  <script src="{% static 'assets/js/owl-carousel.js' %}"></script>
+{#  <script src="{% static 'assets/js/wow.js' %}"></script>#}
+  <script src="{% static 'assets/js/tabs.js' %}"></script>
+  <script src="{% static 'assets/js/popup.js' %}"></script>
+  <script src="{% static 'assets/js/custom.js' %}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
+
+
+  <script>
+    function bannerSwitcher() {
+      next = $('.sec-1-input').filter(':checked').next('.sec-1-input');
+      if (next.length) next.prop('checked', true);
+      else $('.sec-1-input').first().prop('checked', true);
+    }
+
+    var bannerTimer = setInterval(bannerSwitcher, 5000);
+
+    $('nav .controls label').click(function() {
+      clearInterval(bannerTimer);
+      bannerTimer = setInterval(bannerSwitcher, 5000)
+    });
+  </script>
+  <script>
+      $('.nav a').each(function (){
+          let location = window.location.protocol + '//' + window.location.hostname + window.location.pathname;
+          let link = this.href;
+          if(location == link){
+              $(this).classList.add("active");;
+          }
+      });
+  </script>
+<script>
+      let year = document.getElementById('year');
+      let date = new Date();
+      let current = date.getFullYear()
+      year.innerHTML = current;
+</script>
+<script>
+    let currentIndex = 0;
+
+    function showSlide(index) {
+        const slider = document.querySelector('.slider');
+        const slides = document.querySelectorAll('.slide');
+        if (index < 0) {
+            currentIndex = slides.length - 1;
+        } else if (index >= slides.length) {
+            currentIndex = 0;
+        } else {
+            currentIndex = index;
+        }
+        const offset = -currentIndex * 100 + '%';
+        slider.style.transform = 'translateX(' + offset + ')';
+    }
+
+    function prevSlide() {
+        showSlide(currentIndex - 1);
+    }
+
+    function nextSlide() {
+        showSlide(currentIndex + 1);
+    }
+
+    // Automatic slide change every 3 seconds (adjust as needed)
+    setInterval(nextSlide, 3000);
+</script>
+
+<script>
+  let slideIndex = 0;
+
+  function showSlides() {
+    const slides = document.querySelector('.sl-text');
+    const totalSlides = document.querySelectorAll('.sl').length;
+
+    if (slideIndex >= totalSlides) {
+      slideIndex = 0;
+    } else if (slideIndex < 0) {
+      slideIndex = totalSlides - 1;
+    }
+
+    const translateValue = -slideIndex * 100 + '%';
+    slides.style.transform = 'translateX(' + translateValue + ')';
+  }
+
+  function nextSlide() {
+    slideIndex++;
+    showSlides();
+  }
+
+  function prevSlide() {
+    slideIndex--;
+    showSlides();
+  }
+
+  // Auto slide change every 3 seconds
+  setInterval(() => {
+    slideIndex++;
+    showSlides();
+  }, 10000);
+
+  // Initial display
+  showSlides();
+</script>
+</body>
+
+</html>

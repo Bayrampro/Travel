@@ -1,0 +1,274 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% block title %}
+Home
+{% endblock %}
+{% block style %}
+/* Style for the slider container */
+    .border-container {
+        width: 55%;
+        height: 300px;
+        border: 2px solid #3498db;
+        border-radius: 10px;
+        overflow: hidden;
+        position: relative;
+        background-color: #fff;
+        box-shadow: 0 0 20px rgba(0, 191, 255, 0.8);
+    }
+    .sl-cont {
+      width: 80%;
+      height: 150px;
+      margin: auto;
+      overflow: hidden;
+      border: 1px solid #ccc;
+      position: relative;
+    }
+
+    /* Style for the individual slides */
+    .sl-text {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .sl {
+      min-width: 100%;
+      box-sizing: border-box;
+      text-align: center;
+      padding: 55px;
+    }
+
+    /* Style for the navigation buttons */
+    .sl-kn {
+      position: absolute;
+      top: 50%;
+      width: 40px;
+      height: 40px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      font-size: 18px;
+      transform: translateY(-50%);
+    }
+
+    .prev {
+      left: 0;
+    }
+
+    .next {
+      right: 0;
+    }
+    h3{
+      text-align: center;
+    }
+{% endblock %}
+{% block content %}
+ <div id="js-preloader" class="js-preloader">
+    <div class="preloader-inner">
+      <span class="dot"></span>
+      <div class="dots">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </div>
+  <!-- ***** Preloader End ***** -->
+
+  <!-- ***** Header Area Start ***** -->
+  <!-- ***** Header Area End ***** -->
+
+  <!-- ***** Main Banner Area Start ***** -->
+  <section id="section-1">
+    <div class="content-slider">
+      {% for place in places %}
+      <input type="radio" id="banner{{ place.pk }}" class="sec-1-input" name="banner" {% if place.pk == 1 %} checked {% endif %}>
+      {% endfor %}
+      <div class="slider">
+      {% for place in places %}
+        <div id="top-banner-{{ place.pk }}" class="banner" style="background-image: url({{ place.photo.url }});">
+          <div class="banner-inner-wrapper header-text" style="background-color: rgba(0, 0, 0, 0.7);">
+            <div class="main-caption">
+              <h1>{{ place.title }}</h1>
+              <div class="border-button"><a href="{{ place.get_absolute_url }}">{% trans 'Go There' %}</a></div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="more-info">
+                    <div class="row">
+                      <div class="col-lg-3 col-sm-6 col-6">
+                        <i class="fa fa-calendar"></i>
+                        <h4><span>{% trans 'Tour-days:' %}</span><br>{{ place.tour_plan.days_during }}</h4>
+                      </div>
+                      <div class="col-lg-3 col-sm-6 col-6">
+                        <i class="fa fa-dollar"></i>
+                        <h4><span>{% trans 'Cost:' %}</span><br>{{ place.cost }}<em></em></h4>
+                      </div>
+                      <div class="col-lg-3 col-sm-6 col-6">
+                        <i class="fas fa-user"></i>
+                        <h4><span>{% trans 'People:' %}</span><br>{{ place.people }}</h4>
+                      </div>
+                      <div class="col-lg-3 col-sm-6 col-6">
+                        <div class="main-button">
+                          <a href="{{ place.get_absolute_url }}">{% trans 'Explore More' %}</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      <div style="z-index: 1001; position: relative; margin-top: 115px; width: 200px; height: auto">
+         <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="dropdown">
+                    <button class="dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-bs-toggle="dropdown" aria-expanded="false" style="background: transparent; border: none; color: aliceblue">
+                        {% trans 'Get information about weather' %}
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <li><a class="dropdown-item" href="{% url 'get_weather' city='Ashgabat' %}">{% trans 'Ashgabat' %}</a></li>
+                        <li><a class="dropdown-item" href="{% url 'get_weather' city='Ahal' %}">{% trans 'Ahal' %}</a></li>
+                        <li><a class="dropdown-item" href="{% url 'get_weather' city='Mary' %}">{% trans 'Mary' %}</a></li>
+                        <li><a class="dropdown-item" href="{% url 'get_weather' city='Lebap' %}">{% trans 'Lebap' %}</a></li>
+                        <li><a class="dropdown-item" href="{% url 'get_weather' city='Dashoguz' %}">{% trans 'Dashoguz' %}</a></li>
+                        <li><a class="dropdown-item" href="{% url 'get_weather' city='Balkan' %}">{% trans 'Balkan' %}</a></li>
+                        <!-- Add more items as needed -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+      </div>
+      </div>
+      <nav>
+        <div class="controls">
+          {% for place in places %}
+          <label for="banner{{ place.pk }}"><span class="progressbar"><span class="progressbar-fill"></span></span><span class="text">{{ place.pk }}</span></label>
+          {% endfor %}
+        </div>
+      </nav>
+    </div>
+   </section>
+  <!-- ***** Main Banner Area End ***** -->
+
+  <div class="visit-country">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-5">
+          <div class="section-heading">
+            <h2>{% trans 'Latest events' %}</h2>
+            <p>{% trans 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.' %}</p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+
+        <div class="col-lg-8">
+          <div class="items">
+            <div class="row">
+              {% for blog in page_obj %}
+              <div class="col-lg-12">
+                <div class="item">
+                  <div class="row">
+                    <div class="col-lg-4 col-sm-5">
+                      <div class="image">
+                        <img src="{{ blog.photo.url }}" alt="">
+                      </div>
+                    </div>
+                    <div class="col-lg-8 col-sm-7">
+                      <div class="right-content">
+                        <h4>{{ blog.title }}</h4>
+                        <p>{{ blog.content|truncatewords:50 }}</p>
+                        <ul class="info">
+                          <li><i class="fa fa-eye"></i>{{ blog.views }}</li>
+                          <li><i class="fa fa-clock"></i>{{ blog.created_at|timesince }} {% trans 'ago' %}</li>
+                        </ul>
+                        <div class="text-button">
+                          <a href="{{ blog.get_absolute_url }}">{% trans 'Explore more' %} <i class="fa fa-arrow-right"></i></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+
+              <div class="col-lg-12">
+                <ul class="page-numbers">
+                  {% if page_obj.has_previous %}
+                  <li><a href="?page={{ page_obj.previous_page_number }}"><i class="fa fa-arrow-left"></i></a></li>
+                  {% endif %}
+
+                  {% for p in page_obj.paginator.page_range %}
+                  {% if page_obj.number == p %}
+                  <li class="active"><a href="#">{{ p }}</a></li>
+                  {% elif p > page_obj.number|add:-3 and p < page_obj.number|add:3 %}
+                  <li><a href="?page={{ p }}">{{ p }}</a></li>
+                  {% endif %}
+                  {% endfor %}
+
+                  {% if page_obj.has_next %}
+                  <li><a href="?page={{ page_obj.next_page_number }}"><i class="fa fa-arrow-right"></i></a></li>
+                  {% endif %}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="side-bar-map">
+            <div class="row">
+              <div class="col-lg-12">
+                <div id="map">
+                  <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d7428.677652321754!2d62.189338!3d37.5903341!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3d8b6bb5d92e643b%3A0x415702c1ab762ae4!2sMary%2C%20Turkmenistan!5e0!3m2!1sen!2sus!4v1645423212347!5m2!1sen!2sus" width="100%" height="550px" frameborder="0" style="border:0; border-radius: 23px; " allowfullscreen=""></iframe>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<br><br><br><br>
+<center>
+    <div class="border-container">
+        <div class="section-heading">
+            <h3>{% trans 'Did you know about that?' %}</h3>
+        </div>
+        <div class="sl-cont">
+            <div class="sl-text">
+                <div class="sl">{% trans 'Lorem ipsum Hello World 1' %}</div>
+                <div class="sl">{% trans 'Lorem ipsum Hello World 2' %}</div>
+                <div class="sl">{% trans 'Lorem ipsum Hello World 3' %}</div>
+                <!-- Add more slides as needed -->
+            </div>
+
+            <!-- Navigation buttons -->
+            <button class="sl-kn prev" onclick="prevSlide()">&#10094;</button>
+            <button class="sl-kn next" onclick="nextSlide()">&#10095;</button>
+        </div>
+    </div>
+</center>
+
+  <div class="call-to-action">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8">
+          <h2></h2>
+          <h4></h4>
+        </div>
+        <div class="col-lg-4">
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+{% endblock %}

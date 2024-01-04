@@ -1,0 +1,212 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{{ tour.title }}{% endblock %}
+{% block style %}
+{% endblock %}
+{% block content %}
+<div class="second-page-heading" style="background-image: url({{ tour.photo.url }});">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12" style="background-color: rgba(0, 0, 0, 0.7); height: 470px; border-radius: 20px; padding: 70px">
+          <h4>{% trans 'Book'%} {{ tour.title }} {% trans 'Tour Here' %}</h4>
+          <h2>{{ tour.title }}</h2>
+          <p>{% trans 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt uttersi labore et dolore magna aliqua is ipsum suspendisse ultrices gravida' %}</p>
+        </div>
+      </div>
+    </div>
+</div>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-lg-8">
+                <!-- Blog Post Content -->
+                <h1 class="mt-4">{{ tour.title }}</h1>
+                <hr>
+                <img class="img-fluid rounded w-50" src="{{ tour.photo.url }}" alt="Sample Image">
+                <hr>
+                <p class="lead">{{ tour.inf_content }}</p>
+
+            </div>
+        </div>
+    </div>
+
+  <div class="reservation-form">
+    <div class="container">
+      <div class="row">
+            <div class="col-lg-12">
+          <form id="reservation-form" name="gs" method="post" role="search" action="{{ tour.get_absolute_url }}">
+            <div class="row">
+              <div class="col-lg-12">
+                <h4>{% trans 'Make Your' %} <em>{% trans 'Reservation' %}</em> {% trans 'Through This' %} <em>{% trans 'Form' %}</em></h4>
+              </div>
+              {% csrf_token %}
+              {{ form.as_p }}
+              <div class="col-lg-12">
+                  <fieldset>
+                      <button class="main-button">{% trans 'Make Your Reservation Now' %}</button>
+                  </fieldset>
+              </div>
+            </div>
+          </form>
+
+                <div class="container mt-4">
+                    <div class="row">
+                        {% for message in messages %}
+                            {% if message.tags == 'error' %}
+                            <div class="col-md-6">
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong>{% trans 'Error!' %}</strong> {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
+                                </div>
+                            </div>
+                            {% else %}
+                            <div class="col-md-6">
+                                <!-- Success Message -->
+                                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                    <strong>{% trans 'Success!' %}</strong> {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
+                                </div>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+
+            </div>
+      </div>
+    </div>
+  </div>
+
+    <div class="accordion" id="myAccordion">
+        {% if tour.tour_plan.content1 != '' %}
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="section1Header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#section1"
+                        aria-expanded="true" aria-controls="section1">
+                    {% trans 'Day 1' %}
+                </button>
+            </h2>
+            <div id="section1" class="accordion-collapse collapse" aria-labelledby="section1Header"
+                 data-bs-parent="#myAccordion">
+                <div class="accordion-body">
+                    {{ tour.tour_plan.content1 }}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% if tour.tour_plan.content2 != '' %}
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="section2Header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#section2"
+                        aria-expanded="true" aria-controls="section2">
+                    {% trans 'Day 2' %}
+                </button>
+            </h2>
+            <div id="section2" class="accordion-collapse collapse" aria-labelledby="section2Header"
+                 data-bs-parent="#myAccordion">
+                <div class="accordion-body">
+                    {{ tour.tour_plan.content2 }}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% if tour.tour_plan.content3 != '' %}
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="section3Header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#section3"
+                        aria-expanded="true" aria-controls="section3">
+                    {% trans 'Day 3' %}
+                </button>
+            </h2>
+            <div id="section3" class="accordion-collapse collapse" aria-labelledby="section3Header"
+                 data-bs-parent="#myAccordion">
+                <div class="accordion-body">
+                    {{ tour.tour_plan.content3 }}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% if tour.tour_plan.content4 != '' %}
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="section4Header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#section4"
+                        aria-expanded="true" aria-controls="section4">
+                    {% trans 'Day 4' %}
+                </button>
+            </h2>
+            <div id="section4" class="accordion-collapse collapse" aria-labelledby="section4Header"
+                 data-bs-parent="#myAccordion">
+                <div class="accordion-body">
+                    {{ tour.tour_plan.content4 }}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% if tour.tour_plan.content5 != '' %}
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="section5Header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#section5"
+                        aria-expanded="true" aria-controls="section5">
+                    {% trans 'Day 5' %}
+                </button>
+            </h2>
+            <div id="section5" class="accordion-collapse collapse" aria-labelledby="section5Header"
+                 data-bs-parent="#myAccordion">
+                <div class="accordion-body">
+                    {{ tour.tour_plan.content5 }}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% if tour.tour_plan.content6 != '' %}
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="section6Header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#section6"
+                        aria-expanded="true" aria-controls="section6">
+                    {% trans 'Day 6' %}
+                </button>
+            </h2>
+            <div id="section6" class="accordion-collapse collapse" aria-labelledby="section6Header"
+                 data-bs-parent="#myAccordion">
+                <div class="accordion-body">
+                    {{ tour.tour_plan.content6 }}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% if tour.tour_plan.content7 != '' %}
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="section7Header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#section7"
+                        aria-expanded="true" aria-controls="section7">
+                    {% trans 'Day 7' %}
+                </button>
+            </h2>
+            <div id="section7" class="accordion-collapse collapse" aria-labelledby="section7Header"
+                 data-bs-parent="#myAccordion">
+                <div class="accordion-body">
+                    {{ tour.tour_plan.content7 }}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+    </div>
+
+  <div class="call-to-action">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8">
+          <h2></h2>
+          <h4></h4>
+        </div>
+        <div class="col-lg-4">
+          <div class="border-button">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

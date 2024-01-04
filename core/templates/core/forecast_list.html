@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %}{% trans 'Weekly forecast' %}{% endblock %}
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6" style="margin-top: 110px;">
+            <h2 style="color: black">{% trans 'Weekly forecast' %}</h2>
+            <ul class="list-group">
+                <li class="list-group-item"><a href="{% url 'weekly_weather_forecast' city='Ashgabat' %}">{% trans 'Ashgabat' %}</a></li>
+                <li class="list-group-item"><a href="{% url 'weekly_weather_forecast' city='Ahal' %}">{% trans 'Ahal' %}</a></li>
+                <li class="list-group-item"><a href="{% url 'weekly_weather_forecast' city='Mary' %}">{% trans 'Mary' %}</a></li>
+                <li class="list-group-item"><a href="{% url 'weekly_weather_forecast' city='Lebap' %}">{% trans 'Lebap' %}</a></li>
+                <li class="list-group-item"><a href="{% url 'weekly_weather_forecast' city='Dashoguz' %}">{% trans 'Dashoguz' %}</a></li>
+                <li class="list-group-item"><a href="{% url 'weekly_weather_forecast' city='Balkan' %}">{% trans 'Balkan' %}</a></li>
+            </ul>
+        </div>
+    </div>
+</div><br><br><br><br><br>
+    <div class="call-to-action">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

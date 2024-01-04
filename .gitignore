@@ -1,0 +1,4 @@
+db.sqlite3
+django_simple_captcha-0.6.0-py2.py3-none-any.whl
+core/migrations
+venv

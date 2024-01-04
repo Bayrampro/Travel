@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% block style %}
+{% endblock %}
+{% block content %}
+<div class="second-page-heading" style="background-image: url({% static '/assets/images/fon.jpg' %}); height: 300px">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12" style="background-color: rgba(0, 0, 0, 0.7); height: 100px; border-radius: 20px; padding: 15px">
+          <h2>{{ more.title }}</h2>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-lg-8">
+                <!-- Blog Post Content -->
+                <h1 class="mt-4">{{ more.title }}</h1>
+                <hr>
+                <p class="lead">{{ more.content|linebreaks }}</p>
+
+            </div>
+        </div>
+    </div>
+
+  <div class="call-to-action">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8">
+          <h2></h2>
+          <h4></h4>
+        </div>
+        <div class="col-lg-4">
+          <div class="border-button">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

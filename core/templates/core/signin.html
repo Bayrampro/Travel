@@ -1,0 +1,72 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% trans 'Sign in' %}</title>
+     <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <style>
+        body {
+            background-color: #87CEEB; /* Sky Blue */
+        }
+        .container {
+            background-color: #ffffff; /* White */
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 50px;
+        }
+        .errorlist {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5" style="background-color: #87CEEB;">
+    <a class="btn btn-primary" href="{% url 'home' %}">{% trans 'Home' %}</a>
+</div>
+
+<div class="container mt-4" style="background-color: #87CEEB;">
+    <div class="row">
+        {% for message in messages %}
+            {% if message.tags == 'error' %}
+                <div class="col-md-6">
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>Error!</strong> {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                aria-label="Close"></button>
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-md-6">
+                    <!-- Success Message -->
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        <strong>{% trans 'Success!' %}</strong> {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                aria-label="Close"></button>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+<div class="container col-md-4">
+    <form class="mt-4" method="post">
+        <h2 class="text-center mb-4">{% trans 'Sign in' %}</h2>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">{% trans 'Sign in' %}</button>
+    </form>
+</div>
+
+<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+
+<script src="{% static 'assets/js/isotope.min.js' %}"></script>
+<script src="{% static 'assets/js/owl-carousel.js' %}"></script>
+
+</body>
+</html>
